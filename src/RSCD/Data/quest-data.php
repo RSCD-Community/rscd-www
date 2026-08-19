@@ -36,7 +36,7 @@ return [
     25 => ['name' => 'Fishing contest (members)', 'final' => [127]],
     26 => ['name' => 'Monk\'s friend (members)', 'final' => [6]],
     27 => ['name' => 'Temple of Ikov (members)', 'final' => [47, 63]],
-    28 => ['name' => 'Clock tower (members)', 'final' => [127]],
+    28 => ['name' => 'Clock tower (members)', 'final' => [95, 127]],
     29 => ['name' => 'The Holy Grail (members)', 'final' => [128]],
     30 => ['name' => 'Fight Arena (members)', 'final' => [512]],
     31 => ['name' => 'Tree Gnome Village (members)', 'final' => [511]],
@@ -58,4 +58,5 @@ return [
     47 => ['name' => 'Digsite (members)', 'final' => [10]],
     48 => ['name' => 'Gertrude\'s Cat (members)', 'final' => [6]],
     49 => ['name' => 'Legend\'s Quest (members)', 'final' => [25]],
+    50 => ['name' => 'Rune mysteries', 'final' => [4]],
 ];
