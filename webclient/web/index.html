@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RSCD Community &mdash; Play</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #0b0d0b;
+    --panel: #141714;
+    --edge: #2a2f2a;
+    --text: #c8c4b0;
+    --dim: #6f6d60;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font: 13px/1.5 Verdana, Geneva, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+  h1 {
+    font-size: 15px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: var(--text);
+    text-transform: uppercase;
+  }
+  /* padding-top reserves a strip above the canvas for the fullscreen button,
+     so the button never sits on top of game pixels -- it used to overlap the
+     inventory/map tabs in the canvas's own top-right corner. box-sizing is
+     border-box (see the * rule above), so the padding eats into width/height
+     rather than adding to them, which matters for the fullscreen case below.
+     Keep this in sync with WebLaunch.TOOLBAR_HEIGHT, which reserves the same
+     strip out of the framebuffer height it asks for in fullscreen. */
+  #rscd-stage { position: relative; line-height: 0; padding-top: 26px; background: #000; }
+  #rscd-game {
+    background: #000;
+    border: 1px solid var(--edge);
+    box-shadow: 0 0 40px rgba(0,0,0,0.8);
+    line-height: 0;
+  }
+  #rscd-game canvas { display: block; }
+  /* A row, not two pinned offsets: the fullscreen label changes width when it
+     becomes "Exit fullscreen". Inside #rscd-stage, so both stay reachable in
+     fullscreen. */
+  #rscd-tools {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 26px;
+    display: flex;
+    align-items: stretch;
+  }
+  #rscd-fs, #rscd-menu {
+    height: 26px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font: 11px/1 Verdana, Geneva, sans-serif;
+    color: var(--dim);
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+  #rscd-fs:hover, #rscd-fs:focus, #rscd-menu:hover, #rscd-menu:focus { color: var(--text); }
+  #rscd-fs:focus, #rscd-menu:focus { outline: 1px solid var(--dim); }
+  /* Fullscreen: the canvas has already been resized (viewport minus the
+     reserved strip above) by the client itself, so this only has to centre
+     it and black out the rest. */
+  #rscd-stage:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  #rscd-stage:fullscreen #rscd-game { border: 0; box-shadow: none; }
+  .foot { color: var(--dim); font-size: 11px; }
+  .foot a { color: var(--dim); }
+  noscript { color: #a33; }
+</style>
+</head>
+<body>
+<h1>RSCD Community</h1>
+<div id="rscd-stage">
+  <div id="rscd-game"></div>
+  <div id="rscd-tools">
+    <button id="rscd-menu" type="button" title="Scripts, world map and settings (F2)">Menu</button>
+    <button id="rscd-fs" type="button" title="Fullscreen">Fullscreen</button>
+  </div>
+</div>
+<p class="foot">
+  RuneScape Classic revival &mdash; free software, community servers.
+  Options: <code>?server=</code> <code>?port=</code> <code>?ws=</code> <code>?cache=</code>
+  <code>?fonts=</code> <code>?target=</code>
+</p>
+<noscript>This client is JavaScript; there is nothing here without it.</noscript>
+<script src="rscd-client.js"></script>
+<script>main([]);</script>
+<script src="rscd-page.js"></script>
+</body>
+</html>

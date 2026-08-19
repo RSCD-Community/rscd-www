@@ -1,0 +1,46 @@
+/app/logs/
+/app/app.json
+
+# Marks this checkout as the live site (see app/autoload.php). One host has it;
+# nothing else should, and nothing should be able to acquire it by pulling.
+/app/live.flag
+/nbproject/
+/vendor/
+/app/tmp/*
+!/app/tmp/.gitignore
+!/app/tmp/tmp
+
+# Deployment-time link into the server repository (or a copy of it): the
+# assets a client downloads at boot from cache_url. Not repository content --
+# a checked-in symlink that points outside the repo dangles in every fork,
+# so the repository ships without the directory entirely. CACHE_DATA.md at
+# the root explains how a deployment creates it.
+/cache_data
+
+# Maven build output for the TeaVM web client. 4.4MB of it, and most of the
+# bulk is target/generated-sources/game -- the desktop client's sources copied
+# in by prepare-sources.sh. They are a second copy of files that already live
+# in the client repository, so committing them would put the same code in two
+# repositories and let the copies drift.
+/webclient/target/
+
+# Where webclient/build.sh deploys the built browser client for the site to
+# serve. Build output, not repository content: rscd-client.js is generated from
+# the client sources and index.html is a copy of webclient/web/index.html.
+# A checkout that has not run build.sh simply has no browser client, and the
+# Play Game page leaves its browser buttons out accordingly.
+/browser/
+
+# Baked interface fonts, deployed to the site root by webclient/build.sh
+# because that is where the client looks for them. They are generated from the
+# client repository's media/fonts and belong to it.
+/media/fonts/
+
+# Generated at boot from app/app.htaccess, which is the file to edit and the
+# file this repository tracks -- the framework substitutes the deployment's own
+# base directory into it and overwrites this one, so a committed copy would be
+# both wrong for every other host and rewritten on arrival.
+/.htaccess
+
+# Local site-build tooling -- not part of the public repo.
+tools/

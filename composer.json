@@ -1,0 +1,27 @@
+{
+    "name": "rscd/rscd-community",
+    "type": "project",
+    "description": "rscd-community.org — account manager, forums, and community site for RuneScape Classic community worlds",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Macdoofer",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "RSCD\\Model\\": "src/RSCD/Model",
+            "RSCD\\View\\": "src/RSCD/View",
+            "RSCD\\Controller\\": "src/RSCD/Controller",
+            "RSCD\\Util\\": "src/RSCD/Util",
+            "RSCD\\Cron\\": "src/RSCD/Cron"
+        }
+    },
+    "require": {
+        "php": ">=8.1",
+        "phpmailer/phpmailer": "^6.9",
+        "illuminate/database": "^10.0",
+        "illuminate/events": "^10.0"
+    }
+}

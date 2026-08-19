@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Domain Not Configured</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #3a3226;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        .card {
+            max-width: 520px;
+            width: 100%;
+            margin: 40px 20px;
+            background: #c0b7a2;
+            border: 2px solid #6f6753;
+            padding: 48px 40px;
+            text-align: center;
+            color: #2b2417;
+        }
+        h1 { font-size: 22px; margin-bottom: 12px; }
+        .hostname { font-weight: 700; }
+        .message { margin-bottom: 8px; line-height: 1.6; }
+        .sub { font-size: 14px; line-height: 1.6; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Domain Not Configured</h1>
+        <p class="message">
+            The URL you are connecting from &mdash;<br />
+            <span class="hostname">[{hostname}]</span><br />
+            &mdash; has not been configured on this server.
+        </p>
+        <p class="sub">
+            If you believe this is an error, please contact the<br />
+            site administrator to verify the domain configuration.
+        </p>
+    </div>
+</body>
+</html>

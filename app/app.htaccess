@@ -1,0 +1,47 @@
+## auto-generated , manual changes will be overwritten!
+##   instead create template file (default location: app/app.htaccess)
+##   template codes: \[{baseUrl}] \[{url}] | \[{protocol}] | \[{domain}] | \[{directory}] | \[{document}]
+## PHP upload ceilings — modest limits; nothing on this site accepts large uploads.
+php_value upload_max_filesize 8M
+php_value post_max_size 10M
+php_value max_file_uploads 10
+RedirectMatch 404 /(htaccess|composer|phpunit|README)
+RedirectMatch 404 /(app|bin|config|\.git|logs|nbproject|routes|schemas|src|vendor|webclient)/
+## The game cache is readable from any origin.
+##
+## Not a convenience: the browser client cannot join a world without it. A
+## player on some other community's site who picks this world downloads this
+## world's content, and a browser refuses a cross-origin fetch that comes back
+## without this header -- it discards the bytes it already has and the client
+## reports "Could not fetch Loading.xml.data" with nothing wrong at either end.
+## The desktop client never sees this, which is what makes it easy to miss.
+##
+## The cache is public, static, unauthenticated game data that the client is
+## expected to download before anyone signs in, so there is nothing here that
+## an origin restriction would protect. Every world hosting its own assets
+## needs the same line.
+<IfModule mod_headers.c>
+    <If "%{REQUEST_URI} =~ m#^[{directory}]cache_data/#">
+        Header always set Access-Control-Allow-Origin "*"
+    </If>
+</IfModule>
+#ErrorDocument 403 [{directory}]index.php/403/
+ErrorDocument 404 [{directory}]index.php/404/
+#ErrorDocument 500 [{directory}]index.php/500/
+RewriteEngine On
+## Static asset paths answer as assets, or not at all -- never as the site.
+##
+## The browser client asks for eight baked fonts at every launch and treats a
+## missing one as "not baked", which is correct and the fallback is fine. But
+## without this, the catch-all below hands each of those eight requests to
+## index.php, which renders the entire homepage and returns it with a 200. The
+## client then downloads a page of HTML to discover it is not a font, eight
+## times per launch, and the access log fills with page views nobody made.
+##
+## A 404 is the truthful answer to "is there a font here", and it is the answer
+## the client is already written to handle.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^media/ - [R=404,L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ [{directory}]index.php/$1 [QSA]

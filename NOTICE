@@ -1,0 +1,51 @@
+RSCD
+Copyright 2026 Macdoofer (To join the RSCD Community as a contributor email 
+			     macdoofer@rscd-community.org)
+
+Licensed under the Apache License, Version 2.0. See LICENSE for the full text.
+
+Covers rscd-server, rscd-community-client, rscd-www and rscd-api.
+
+The project carries no third-party jars. Connector/J was replaced by
+server/util/sql/MysqlClient, MINA by server/util/net, and XStream by
+XmlObjects on both sides, so nothing in the build inherits an obligation
+from a dependency.
+
+rscd-www-deprecated/ is the old PunBB site. It is not covered here and is
+not going into the repository.
+
+
+LINEAGE
+
+RSCD descends from RSCDaemon, a RuneScape Classic server begun in 2006-2007
+by eXemplar, SeanWT, Philodespotos and Mediator, and continued by Reines,
+who brought it to the stable release the community ran. RSCDaemon
+was worked on in the open and shared as a community project throughout;
+its source went fully public after the project ended, and most later RSC
+servers -- RSCEmulation among them -- start from that code.
+
+No licence text was ever attached to it. That is recorded here as fact,
+not as a claim about anyone's intent: the code was released to the
+community to be used and built on, and this is that use. Attribution to
+the authors above stays in this file permanently, and it travels with any
+fork of this repository.
+
+What arrived from upstream is the engine skeleton -- the packet loop, the
+tile and pathing model, the persistence and entity-definition layer -- as
+recovered by decompilation from the released build. Everything a player
+touches was written here: the 50 quests, all 18 skills, the minigames, the
+combat and drop tables, the world data rebuilt from the genuine Jagex
+cache, the community world list, the client's script tiers. RSCDaemon's
+authors built an engine to Jagex's blueprint and stopped well short of the
+game; the game is ours.
+
+The tree has also moved off the JDK 8 it was stuck on. The internals it
+reached through are gone -- sun.reflect.ReflectionFactory by way of
+XStream, MINA, the applet and AWT assumptions -- and it builds and runs on
+current JDKs.
+
+RuneScape and RuneScape Classic are trademarks of Jagex Ltd. This project
+is not affiliated with, endorsed by, or connected to Jagex in any way. It
+ships no Jagex code, no Jagex client and no Jagex data files. Jagex shut
+RuneScape Classic down permanently in August 2018; this is a preservation
+effort for a game that no longer exists.

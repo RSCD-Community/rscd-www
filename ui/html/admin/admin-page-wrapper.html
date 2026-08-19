@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8" />
+<meta name="description" content="[{description}]" />
+<meta name="keywords" content="[{keywords}]" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="version" content="[{app.version}]" />
+<meta name="robots" content="noindex, nofollow" />
+
+<meta name="application-name" content="[{app.short_name}]" />
+<meta name="theme-color" content="#3a3226" />
+
+<title>[{title}]</title>
+<link rel="icon" href="[{app.icon}]" />
+
+<link rel="stylesheet" media="screen" href="[{url.base}]ui/css/admin-app.css?v=[{app.assets}]" />
+
+<script type="text/javascript">
+var isStaging = '[{is_live}]' === 'false';
+var baseUrl = '[{url.base}]';
+var activeUser = [{active_user}];
+var allowed = [{active_user.allowed_conditions}];
+var timeZone = '[{app.timezone}]';
+</script>
+
+</head>
+<body>
+    <div style="display:none;" data-staging-warning>
+        <div class="staging-warning">
+            <b>YOU ARE CONNECTED TO THE STAGING SERVER</b>
+        </div>
+    </div>
+    <script type="text/javascript">
+        if(isStaging) { document.querySelector('[data-staging-warning]').style.display = ''; }
+    </script>
+<div id="container">
+[{page}]
+</div>
+
+</body>
+</html>

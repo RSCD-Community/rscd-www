@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="utf-8" />
+<meta name="description" content="[{description}]" />
+<meta name="keywords" content="[{keywords}]" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="version" content="[{app.version}]" />
+
+<meta property="og:site_name" content="[{app.name}]"/>
+<meta property="og:title" content="[{title}]"/>
+<meta property="og:url" content="[{canonical}]"/>
+<meta property="og:type" content="website"/>
+<meta property="og:description" content="[{description}]"/>
+<meta property="og:image" content="[{og_image}]"/>
+
+<meta name="application-name" content="[{app.short_name}]" />
+<meta name="theme-color" content="#000000" />
+
+<title>[{title}]</title>
+
+<link rel="canonical" href="[{canonical}]" />
+<link rel="icon" href="[{app.icon}]" />
+
+[{jsonld}]
+
+<link rel="stylesheet" media="screen" href="[{url.base}]ui/css/rscd.css?v=[{app.assets}]" />
+
+[{gtag}]
+
+</head>
+<body>
+
+[{staging_warning}]
+
+<div class="stone-frame">
+    <div class="frame-top"><span class="corner corner-a"></span><span class="frame-strip"></span><span class="corner corner-d"></span></div>
+    <div class="frame-middle">
+        <span class="frame-side frame-side-left"></span>
+        <div class="frame-content">
+[{page}]
+            <p class="legal-footer">
+                RuneScape&reg; and Jagex&reg; are trademarks of Jagex Ltd &copy; 2000 &ndash; [{year}] Andrew Gower.
+                [{app.name}] is an independent, non-commercial preservation project, and is not
+                affiliated with, endorsed by, sponsored by or connected to Jagex Ltd in any way.
+            </p>
+        </div>
+        <span class="frame-side frame-side-right"></span>
+    </div>
+    <div class="frame-bottom"><span class="corner corner-g"></span><span class="frame-strip"></span><span class="corner corner-h"></span></div>
+</div>
+
+</body>
+</html>

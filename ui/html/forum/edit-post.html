@@ -1,0 +1,18 @@
+<div class="container account-page forum-page">
+    [{alerts}]
+    <p class="forum-breadcrumb"><a href="[{url.base}]forums/">Forums</a> &raquo; <a href="[{url.base}]forums/topic/id%3D[{topic.id}]/">[{topic.title}]</a> &raquo; Edit post</p>
+    <div class="account-panel">
+        <h2>Edit post</h2>
+        <form action="[{url.base}]forums/edit-post/" method="POST">
+            <input type="hidden" name="id" value="[{post.id}]" />
+            <div class="form-group">
+                <label for="body">Message</label>
+                <textarea class="form-control forum-editor" id="body" name="body" maxlength="20000" required>[{post.body}]</textarea>
+            </div>
+            <p class="auth-hint">You can use [b]bold[/b], [i]italic[/i], [u]underline[/u], [quote], [code] and [url=https://...]links[/url].</p>
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Save changes</button>
+            </div>
+        </form>
+    </div>
+</div>

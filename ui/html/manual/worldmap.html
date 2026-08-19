@@ -1,0 +1,128 @@
+<div class="container manual-archive">
+    <div class="manual-2003">
+        <table width=300 bgcolor=black cellpadding=4 align=center><tr><td class=e><center>
+        <b>Map of the RuneScape World</b><br>
+        <a href="[{url.base}]" class=c>Main menu</a>
+        -
+        <a href="[{url.base}]manual/" class=c>Manual</a>
+        </center></td></tr></table>
+        <br>
+        <!--
+            The 2003 page moved an absolutely positioned map div with four
+            hold-to-repeat arrow buttons (8px every 15ms, clamped so the map
+            edge never leaves the frame) and opened at Lumbridge. That is
+            rebuilt here; dragging, and the arrow keys, are added on top. The
+            original had neither, but a map you cannot drag reads as broken now.
+        -->
+        <div class="worldmap" id="worldmap" tabindex="0"
+             aria-label="Map of the RuneScape world: drag it, or use the arrow buttons or arrow keys">
+            <img class="worldmap-img" id="worldmap-img" draggable="false"
+                 src="[{url.base}]ui/img/manual2003/rsimg/worldmap/map10.gif"
+                 width=1872 height=864 alt="Map of the RuneScape world" />
+
+            <button type="button" class="worldmap-arrow wm-up"    data-dx="0"  data-dy="8"  aria-label="Pan up"><img src="[{url.base}]ui/img/manual2003/rsimg/worldmap/uparrow.gif" width=47 height=42 alt="" /></button>
+            <button type="button" class="worldmap-arrow wm-down"  data-dx="0"  data-dy="-8" aria-label="Pan down"><img src="[{url.base}]ui/img/manual2003/rsimg/worldmap/downarrow.gif" width=47 height=42 alt="" /></button>
+            <button type="button" class="worldmap-arrow wm-left"  data-dx="8"  data-dy="0"  aria-label="Pan left"><img src="[{url.base}]ui/img/manual2003/rsimg/worldmap/leftarrow.gif" width=47 height=42 alt="" /></button>
+            <button type="button" class="worldmap-arrow wm-right" data-dx="-8" data-dy="0"  aria-label="Pan right"><img src="[{url.base}]ui/img/manual2003/rsimg/worldmap/rightarrow.gif" width=47 height=42 alt="" /></button>
+
+            <button type="button" class="worldmap-keybtn" id="worldmap-keybtn" aria-expanded="false" aria-controls="worldmap-key" aria-label="Show the map key"><img src="[{url.base}]ui/img/manual2003/rsimg/worldmap/keybutton.gif" width=43 height=36 alt="" /></button>
+            <img class="worldmap-key" id="worldmap-key" hidden
+                 src="[{url.base}]ui/img/manual2003/rsimg/worldmap/mapkey3.gif"
+                 width=408 height=284 alt="Map key" />
+        </div>
+    </div>
+</div>
+
+<script>
+(function () {
+    var pane = document.getElementById('worldmap');
+    var img  = document.getElementById('worldmap-img');
+    if (!pane || !img) { return; }
+
+    // Lumbridge, where the 2003 page opened (its own initial moveIt call).
+    var x = -1325, y = -375;
+
+    function place() {
+        var minX = Math.min(0, pane.clientWidth  - img.width);
+        var minY = Math.min(0, pane.clientHeight - img.height);
+        x = Math.max(minX, Math.min(0, x));
+        y = Math.max(minY, Math.min(0, y));
+        img.style.left = x + 'px';
+        img.style.top  = y + 'px';
+    }
+    function nudge(dx, dy) { x += dx; y += dy; place(); }
+    place();
+    window.addEventListener('resize', place);
+
+    // Arrow pad: press and hold to keep panning, as the original did.
+    Array.prototype.forEach.call(pane.querySelectorAll('.worldmap-arrow'), function (btn) {
+        var dx = parseInt(btn.getAttribute('data-dx'), 10);
+        var dy = parseInt(btn.getAttribute('data-dy'), 10);
+        var timer = null;
+        function start(e) {
+            e.preventDefault();
+            if (timer) { return; }
+            nudge(dx, dy);
+            timer = setInterval(function () { nudge(dx, dy); }, 15);
+        }
+        function stop() { clearInterval(timer); timer = null; }
+        btn.addEventListener('mousedown', start);
+        btn.addEventListener('touchstart', start, { passive: false });
+        ['mouseup', 'mouseleave', 'touchend', 'touchcancel', 'blur'].forEach(function (ev) {
+            btn.addEventListener(ev, stop);
+        });
+        // keyboard: a press with no hold should still move a useful distance
+        btn.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); nudge(dx * 8, dy * 8); }
+        });
+    });
+
+    // Drag to pan, mouse and touch.
+    var dragging = false, lastX = 0, lastY = 0;
+    function point(e) {
+        var t = e.touches && e.touches[0];
+        return { x: t ? t.clientX : e.clientX, y: t ? t.clientY : e.clientY };
+    }
+    function down(e) {
+        if (e.target.closest('.worldmap-arrow, .worldmap-keybtn')) { return; }
+        var p = point(e);
+        dragging = true; lastX = p.x; lastY = p.y;
+        pane.classList.add('is-dragging');
+        if (e.cancelable) { e.preventDefault(); }
+    }
+    function move(e) {
+        if (!dragging) { return; }
+        var p = point(e);
+        nudge(p.x - lastX, p.y - lastY);
+        lastX = p.x; lastY = p.y;
+        if (e.cancelable) { e.preventDefault(); }
+    }
+    function up() { dragging = false; pane.classList.remove('is-dragging'); }
+    pane.addEventListener('mousedown', down);
+    document.addEventListener('mousemove', move);
+    document.addEventListener('mouseup', up);
+    pane.addEventListener('touchstart', down, { passive: false });
+    pane.addEventListener('touchmove', move, { passive: false });
+    pane.addEventListener('touchend', up);
+
+    // Arrow keys once the map has focus.
+    pane.addEventListener('keydown', function (e) {
+        var step = e.shiftKey ? 160 : 40, d = null;
+        if (e.key === 'ArrowUp')    { d = [0, step]; }
+        if (e.key === 'ArrowDown')  { d = [0, -step]; }
+        if (e.key === 'ArrowLeft')  { d = [step, 0]; }
+        if (e.key === 'ArrowRight') { d = [-step, 0]; }
+        if (d) { e.preventDefault(); nudge(d[0], d[1]); }
+    });
+
+    // The key was hold-to-show in 2003; a toggle also works on a touchscreen.
+    var keyBtn = document.getElementById('worldmap-keybtn');
+    var keyImg = document.getElementById('worldmap-key');
+    keyBtn.addEventListener('click', function () {
+        var show = keyImg.hidden;
+        keyImg.hidden = !show;
+        keyBtn.setAttribute('aria-expanded', show ? 'true' : 'false');
+        keyBtn.setAttribute('aria-label', show ? 'Hide the map key' : 'Show the map key');
+    });
+})();
+</script>

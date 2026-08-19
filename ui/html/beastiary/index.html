@@ -1,0 +1,13 @@
+<div class="container account-page beastiary-page">
+    [{alerts}]
+    <div class="account-panel">
+        <h2>Beastiary</h2>
+        <p class="auth-hint">Showing [{count}] creatures &mdash; [{mode}].  Everything on these pages comes straight from the game's own data files, drop rates included.</p>
+        <form class="beastiary-search" action="[{url.base}]beastiary/" method="GET">
+            <input class="form-control" type="text" name="q" value="[{q}]" placeholder="Search by name" maxlength="40" />
+            <button class="btn" type="submit">Search</button>
+        </form>
+        [{listing}]
+        <p class="auth-hint">[{toggle}] &middot; <a href="[{url.base}]beastiary/rare/">The rare drop table</a></p>
+    </div>
+</div>

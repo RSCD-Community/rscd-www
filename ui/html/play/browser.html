@@ -1,0 +1,52 @@
+<div class="container play-browser">
+
+    <noscript><p class="alert alert-danger">The browser client is JavaScript, and this browser has it turned off.  There is nothing to play here until it is on &mdash; or use the desktop client from <a href="[{url.base}]play/">Play Game</a>.</p></noscript>
+
+    <div class="webclient-stage-wrap">
+        <div id="rscd-stage">
+            <div id="rscd-game"></div>
+            <div id="rscd-tools">
+                <button id="rscd-menu" type="button" title="Scripts, world map and settings (F2)">Menu</button>
+                <button id="rscd-fs" type="button" title="Fullscreen">Fullscreen</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="account-panel">
+        <h2>[{world_title}]</h2>
+        [{world_note}]
+        <p class="auth-hint">The game is loading above.  The first visit downloads the world's cache and takes a while; after that the browser keeps it.  Settings and sound live in this browser only &mdash; clearing site data resets them.</p>
+        <p class="cta-row">
+            <a class="btn" href="[{url.base}]play/">Back to Play Game</a>
+            <a class="btn" href="[{url.base}]">Main menu</a>
+        </p>
+    </div>
+
+    <div class="account-panel">
+        <h3>Or get the desktop client</h3>
+        <p>Same game, same worlds, and it keeps your settings between sessions.  It also carries the SkullOrca scripting the browser version does not.</p>
+        <p class="cta-row"><a class="btn" href="https://github.com/RSCD-Community/rscd-community-client">Download the client from GitHub</a></p>
+    </div>
+
+</div>
+
+<!-- Where this site fronts its world's WebSocket bridge.  Must be set before
+     the client loads, because the client reads it once during start-up.  Blank
+     for a world this site does not host, which leaves the client on its own
+     port+1 default.  See RSCD\Controller\Play::bridgeUrl(). -->
+<!-- Where this site's WebSocket bridge is, and which world it belongs to.
+     The client only uses the URL when it is dialling that exact world, so
+     picking somebody else's world from the Worlds screen falls through to
+     their own bridge rather than silently landing back here. -->
+<script>
+window.RSCD_WS = "[{ws_url}]";
+window.RSCD_WS_HOST = "[{ws_host}]";
+window.RSCD_WS_PORT = "[{ws_port}]";
+</script>
+<!-- ?v= is load-bearing, not decoration.  These files carry no Cache-Control,
+     so without a changing URL a returning player keeps whatever build their
+     browser happened to keep -- and a stale client looks exactly like a broken
+     server.  See RSCD\Controller\Play::clientVersion(). -->
+<script src="[{url.base}]browser/rscd-client.js?v=[{client_assets}]"></script>
+<script>main([]);</script>
+<script src="[{url.base}]browser/rscd-page.js?v=[{client_assets}]"></script>

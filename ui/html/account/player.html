@@ -1,0 +1,59 @@
+<div class="container account-page">
+    [{alerts}]
+    <p><a href="[{url.base}]account/">&laquo; Back to your characters</a></p>
+    <div class="account-panel">
+        <h2>[{player.name}]</h2>
+        [{summary}]
+    </div>
+    <div class="account-panel">
+        <h3>Skills</h3>
+        [{skills}]
+    </div>
+    <div class="account-panel">
+        <h3>Quests</h3>
+        [{quests}]
+    </div>
+    <div class="account-columns">
+        <div class="account-panel">
+            <h3>Inventory</h3>
+            [{inventory}]
+        </div>
+        <div class="account-panel">
+            <h3>Bank</h3>
+            <p class="auth-hint">The bank is shared by every character on your account.</p>
+            [{bank}]
+        </div>
+    </div>
+    <div class="account-panel">
+        <h3>Change game password</h3>
+        <p class="auth-hint">This changes the password typed at the game's login screen.  If you have forgotten it, just set a new one here.  It is 4 to 20 characters, and any letter, number or punctuation mark the login screen lets you type will work.</p>
+        <form name="change-game-password" action="[{url.base}]account/password/" method="POST">
+            <input type="hidden" name="id" value="[{player.id}]" />
+            <div class="form-group">
+                <label for="player-password">New game password</label>
+                <input class="form-control" type="password" id="player-password" name="password" maxlength="20" required />
+            </div>
+            <div class="form-group">
+                <label for="player-confirm">Confirm new game password</label>
+                <input class="form-control" type="password" id="player-confirm" name="confirm_password" maxlength="20" required />
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Change password</button>
+            </div>
+        </form>
+    </div>
+    <div class="account-panel account-panel-danger">
+        <h3>Delete this character</h3>
+        <p class="auth-hint">Deleting a character permanently removes its stats, quest progress, inventory, and bank.  This cannot be undone.  Type the character's name to confirm.</p>
+        <form name="delete-character" action="[{url.base}]account/delete/" method="POST">
+            <input type="hidden" name="id" value="[{player.id}]" />
+            <div class="form-group">
+                <label for="player-delete-confirm">Character name</label>
+                <input class="form-control" type="text" id="player-delete-confirm" name="confirm_name" maxlength="12" required />
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-danger" type="submit">Delete character forever</button>
+            </div>
+        </form>
+    </div>
+</div>

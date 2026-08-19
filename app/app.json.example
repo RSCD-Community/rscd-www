@@ -1,0 +1,71 @@
+{
+    "name": "RSCD Community",
+    "shortName": "RSCD",
+    "title": "RSCD Community - RuneScape Classic",
+    "description": "RSCD Community - a free, open-source revival of RuneScape Classic. Play the 2003 game, host your own world, and join the community.",
+    "keywords": "runescape classic, rsc, rscd, free, open source, mmorpg, 2003",
+    "primaryDomain": "example.org",
+    "domains": [
+        "example.org",
+        "www.example.org",
+        "localhost"
+    ],
+    "supportEmailAddress": "support@example.org",
+    "logoUrl": "[{url.base}]ui/img/logo.png",
+    "iconUrl": "[{url.base}]ui/img/icon.png",
+    "timeZone": "America/New_York",
+    "gtagId": "",
+    "salt": "CHANGE-ME-random-32-character-str",
+    "paths": {
+        "tmp": {
+            "live": "/var/www/example.org/app/tmp/",
+            "test": "/path/to/your/checkout/app/tmp/"
+        }
+    },
+    "cloudflare": {
+        "turnstile": {
+            "siteKey": "",
+            "secretKey": ""
+        }
+    },
+    "smtp": {
+        "host": "smtp.example.org",
+        "port": 587,
+        "name": "RSCD Community",
+        "user": "notifications@example.org",
+        "pass": "CHANGE-ME-smtp-password",
+        "security": "tls"
+    },
+    "database": {
+        "driver": "mysql",
+        "host": "127.0.0.1",
+        "name": "rscd",
+        "user": "rscd",
+        "pass": "CHANGE-ME-database-password"
+    },
+    "encoder": {
+        "class": "\\RSCD\\Model\\Encoder\\Hexadecimal"
+    },
+    "encrypter": {
+        "class": "\\RSCD\\Model\\Encrypter\\OpenSSLAES",
+        "params": {
+            "cipher": "CBC",
+            "padding": "PKCS5",
+            "key": "CHANGE-ME-random-32-character-str",
+            "iv": "CHANGE-ME-16-chr"
+        }
+    },
+    "messageDigest": {
+        "class": "\\RSCD\\Model\\MessageDigest\\MD5"
+    },
+    "stripe": {
+        "testPublicKey": "",
+        "testSecretKey": "",
+        "livePublicKey": "",
+        "liveSecretKey": ""
+    },
+    "gameServer": {
+        "host": "127.0.0.1",
+        "port": 8181
+    }
+}

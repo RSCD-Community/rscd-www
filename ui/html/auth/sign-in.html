@@ -1,0 +1,29 @@
+<div class="container auth-page">
+    <div class="auth-panel">
+        <h2>Sign in</h2>
+        <p class="auth-hint">Use the same account for the Account manager and the forums.</p>
+        [{alerts}]
+        <form name="sign-in" action="[{url.base}]sign-in/" method="POST">
+            <input type="hidden" name="referer" value="[{referer}]" />
+            <div class="form-group">
+                <label for="sign-in-email">Email address</label>
+                <input class="form-control" type="email" id="sign-in-email" name="email" required />
+            </div>
+            <div class="form-group">
+                <label for="sign-in-password">Password</label>
+                <input class="form-control" type="password" id="sign-in-password" name="password" required />
+            </div>
+            <div class="form-links">
+                <a href="[{url.base}]forgot-password/">Forgot password?</a>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Sign in</button>
+            </div>
+        </form>
+    </div>
+    <div class="auth-panel auth-panel-alt">
+        <h2>No account yet?</h2>
+        <p>Register a free account to manage your game characters, reset passwords, and post on the forums.</p>
+        <a class="btn" href="[{url.base}]register/">Register</a>
+    </div>
+</div>

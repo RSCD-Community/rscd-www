@@ -1,0 +1,242 @@
+[
+    {
+        "scope": "sign-in%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Auth",
+            "action": "sign-in"
+        }
+    },
+    {
+        "scope": "sign-out%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Auth",
+            "action": "sign-out"
+        }
+    },
+    {
+        "scope": "activate-session%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Auth",
+            "action": "activate-session"
+        }
+    },
+    {
+        "scope": "forgot-password%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Auth",
+            "action": "forgot-password"
+        }
+    },
+    {
+        "scope": "reset-password%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Auth",
+            "action": "reset-password"
+        }
+    },
+    {
+        "scope": "register%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Auth",
+            "action": "register"
+        }
+    },
+    {
+        "scope": "verify-email%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Auth",
+            "action": "verify-email"
+        }
+    },
+    {
+        "scope": "403%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Errors",
+            "action": "403"
+        }
+    },
+    {
+        "scope": "404%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Errors",
+            "action": "404"
+        }
+    },
+    {
+        "scope": "500%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Errors",
+            "action": "500"
+        }
+    },
+    {
+        "scope": "account%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Account",
+            "action": ""
+        }
+    },
+    {
+        "scope": "beastiary%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Beastiary",
+            "action": ""
+        }
+    },
+    {
+        "scope": "hiscores%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Hiscores",
+            "action": ""
+        }
+    },
+    {
+        "scope": "manual%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Manual",
+            "action": ""
+        }
+    },
+    {
+        "scope": "about%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\About",
+            "action": ""
+        }
+    },
+    {
+        "scope": "donate%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Donate",
+            "action": ""
+        }
+    },
+    {
+        "scope": "worlds.json%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Worlds",
+            "action": ""
+        }
+    },
+    {
+        "scope": "play/browser%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Play",
+            "action": "browser"
+        }
+    },
+    {
+        "scope": "play%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Play",
+            "action": ""
+        }
+    },
+    {
+        "scope": "forums%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Forum",
+            "action": ""
+        }
+    },
+    {
+        "scope": "admin/access-polic%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Admin\\AccessPolicies",
+            "action": ""
+        }
+    },
+    {
+        "scope": "admin/role%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Admin\\Roles",
+            "action": ""
+        }
+    },
+    {
+        "scope": "admin/tag%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Admin\\Tags",
+            "action": ""
+        }
+    },
+    {
+        "scope": "admin/events%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Admin\\Events",
+            "action": ""
+        }
+    },
+    {
+        "scope": "admin/file%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Admin\\Files",
+            "action": ""
+        }
+    },
+    {
+        "scope": "admin/game%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Admin\\Game",
+            "action": ""
+        }
+    },
+    {
+        "scope": "admin/user%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Admin\\Users",
+            "action": ""
+        }
+    },
+    {
+        "scope": "admin%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Admin\\DefaultController",
+            "action": ""
+        }
+    },
+    {
+        "scope": "assets/%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Assets",
+            "action": ""
+        }
+    },
+    {
+        "scope": "%",
+        "method": "%",
+        "defaults": {
+            "controller": "\\RSCD\\Controller\\Home",
+            "action": ""
+        }
+    }
+]

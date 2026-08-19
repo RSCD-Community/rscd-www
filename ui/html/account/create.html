@@ -1,0 +1,25 @@
+<div class="container account-page">
+    <div class="auth-panel">
+        <h2>Create a character</h2>
+        <p class="auth-hint">Character names are 2 to 12 letters, numbers, or spaces.  The game password is what you type at the game's login screen &mdash; it is separate from your website password.  It is 4 to 20 characters, and any letter, number or punctuation mark the login screen lets you type will work.</p>
+        [{alerts}]
+        <form name="create-character" action="[{url.base}]account/create/" method="POST">
+            <div class="form-group">
+                <label for="create-username">Character name</label>
+                <input class="form-control" type="text" id="create-username" name="username" maxlength="12" required />
+            </div>
+            <div class="form-group">
+                <label for="create-password">Game password</label>
+                <input class="form-control" type="password" id="create-password" name="password" maxlength="20" required />
+            </div>
+            <div class="form-group">
+                <label for="create-confirm">Confirm game password</label>
+                <input class="form-control" type="password" id="create-confirm" name="confirm_password" maxlength="20" required />
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary" type="submit">Create character</button>
+                <a class="btn" href="[{url.base}]account/">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

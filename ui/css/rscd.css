@@ -1,0 +1,715 @@
+/*
+ * rscd-community.org — from-scratch stylesheet.
+ *
+ * Reproduces the March 2003 runescape.com front-end: a fixed 600px
+ * bone-and-vine frame around a 518px content pane, Arial 13px, white
+ * text on black, and #90c040 green links. All imagery lives in ui/img/.
+ * No external fonts, scripts, or libraries.
+ */
+
+html, body { margin: 0; padding: 0; }
+
+body {
+    background: #000;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+}
+
+a, a:visited, a:active { color: #90c040; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+h1 { font-size: 18px; margin: 0 0 10px; }
+h2 { font-size: 15px; margin: 16px 0 8px; }
+p { margin: 0 0 10px; }
+
+.staging-warning {
+    background: #e03010;
+    color: #fff;
+    text-align: center;
+    padding: 4px 0;
+}
+
+/* ---- the stone frame ----
+ * Edge art dimensions are fixed by the source images: corners 100px wide
+ * (43px tall on top, 82px on the bottom), 400px connecting strips 42px
+ * tall, and 41px side columns that tile vertically so the frame can
+ * stretch to any content height.
+ */
+
+.stone-frame { width: 600px; margin: 14px auto; }
+
+/* ---- the frame on a phone ----
+ * The frame cannot reflow. It is a picture assembled out of fixed-size edge
+ * art around a 518px pane, and every landing-page button is placed at a
+ * literal 2003 coordinate inside it -- so 600px is a hard number, not a
+ * preference, and a narrow screen would simply cut the right-hand edge off.
+ * That is what "starts zoomed in" looks like: the page is not zoomed, it is
+ * wider than the phone.
+ *
+ * So it gets scaled down to fit instead. zoom, not transform: zoom scales the
+ * layout box with the pixels, so the page ends up genuinely narrower and there
+ * is no phantom horizontal scroll left behind. Steps rather than a formula
+ * because CSS cannot divide a viewport width by a length to get a ratio; each
+ * step is sized for the NARROWEST screen in its band, so the frame always fits
+ * with a little air either side and never overflows.
+ *
+ * Firefox before 126 ignores zoom and renders as it did before -- no worse,
+ * just not fixed.
+ */
+@media (max-width: 612px) { .stone-frame { zoom: 0.94; } }  /* 576-612 */
+@media (max-width: 575px) { .stone-frame { zoom: 0.88; } }  /* 540-575 */
+@media (max-width: 539px) { .stone-frame { zoom: 0.78; } }  /* 480-539 */
+@media (max-width: 479px) { .stone-frame { zoom: 0.70; } }  /* 432-479 */
+@media (max-width: 431px) { .stone-frame { zoom: 0.64; } }  /* 400-431: iPhone Pro Max */
+@media (max-width: 399px) { .stone-frame { zoom: 0.60; } }  /* 376-399: Pixel, iPhone 14/15 */
+@media (max-width: 375px) { .stone-frame { zoom: 0.58; } }  /* 360-375: iPhone SE/mini */
+@media (max-width: 359px) { .stone-frame { zoom: 0.51; } }  /* 320-359: small Android */
+@media (max-width: 319px) { .stone-frame { zoom: 0.46; } }  /* anything narrower */
+
+.frame-top, .frame-bottom { display: flex; }
+.frame-top { height: 43px; align-items: flex-start; }
+.frame-bottom { height: 82px; align-items: flex-end; }
+
+.corner { flex: none; width: 100px; }
+.frame-top .corner { height: 43px; }
+.frame-bottom .corner { height: 82px; }
+
+.corner-a { background: url(../img/edge_a.jpg) no-repeat; }
+.corner-d { background: url(../img/edge_d.jpg) no-repeat; }
+.corner-g { background: url(../img/edge_g.jpg) no-repeat; }
+.corner-h { background: url(../img/edge_h.jpg) no-repeat; }
+
+.frame-strip {
+    flex: none;
+    width: 400px;
+    height: 42px;
+    background: url(../img/edge_c.jpg) no-repeat;
+}
+
+.frame-middle { display: flex; }
+
+.frame-side { flex: none; width: 41px; }
+.frame-side-left { background: url(../img/edge_f.jpg) repeat-y; }
+.frame-side-right { background: url(../img/edge_e.jpg) repeat-y; }
+
+.frame-content {
+    flex: none;
+    width: 518px;
+    min-height: 488px;
+    box-sizing: border-box;
+    background: #000 url(../img/background.jpg);
+}
+
+/* ---- landing page ----
+ * Positions are the original title.html coordinates inside the 518x488
+ * content pane. Text sits on the blank stone ovals with the 2003
+ * two-layer effect (black shadow offset 2px under the face colour).
+ */
+
+.home-title { position: relative; width: 518px; height: 488px;}
+
+.home-logo { position: absolute; left: 115px; top: 20px; width: 309px; height: 84px; }
+
+.home-count {
+    position: absolute;
+    left: 115px;
+    top: 130px;
+    width: 309px;
+    margin: 0;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+}
+
+.stone-btn {
+    position: absolute;
+    width: 109px;
+    height: 83px;
+    box-sizing: border-box;
+    padding: 0 10px;
+    background: url(../img/small.gif) no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.15;
+    color: #e0d8c0;
+    text-shadow: 2px 2px 0 #000;
+}
+a.stone-btn, a.stone-btn:visited, a.stone-btn:active { color: #e0d8c0; }
+a.stone-btn:hover { text-decoration: none; filter: brightness(1.15); }
+span.stone-btn { cursor: default; }
+
+.btn-play {
+    left: 160px;
+    top: 240px;
+    width: 205px;
+    height: 150px;
+    background: url(../img/start.gif) no-repeat;
+    font-size: 32px;
+    color: #e03010;
+}
+a.btn-play, a.btn-play:visited, a.btn-play:active { color: #e03010; }
+
+.btn-forums    { left: 70px;  top: 175px; }
+.btn-hiscores  { left: 340px; top: 175px; }
+.btn-beastiary { left: 30px;  top: 270px; }
+.btn-account   { left: 380px; top: 270px; }
+.btn-manual    { left: 70px;  top: 360px; }
+.btn-github    { left: 340px; top: 360px; }
+.btn-donate    { left: 205px; top: 400px; }
+
+/* ---- landing page prose ----
+ * The ring of stones is absolutely positioned inside a fixed 518x488 box,
+ * so anything below it has to be a sibling of that box rather than live
+ * in it; these panels grow the stone frame downwards on their own. Same
+ * black plate and #382418 border as .account-panel and the title boxes,
+ * so the front page reads as part of the site and not a bolt-on.
+ */
+
+.home-sections { padding: 32px 16px;}
+
+.info-panel {
+    margin: 0 0 16px;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    background: #000;
+    border: 2px solid #382418;
+}
+.info-panel h2 { margin-top: 2px; }
+.info-panel h3 {
+    margin: 14px 0 6px;
+    font-size: 13px;
+    color: #e0d8c0;
+}
+.info-panel p:last-child { margin-bottom: 0; }
+
+.info-list {
+    margin: 0 0 10px;
+    padding-left: 18px;
+}
+.info-list li { margin-bottom: 5px; }
+.info-list:last-child { margin-bottom: 0; }
+
+/* ---- shared page chrome ---- */
+
+.container { padding: 12px 16px; box-sizing: border-box; }
+
+.page-header .title-box {
+    width: 380px;
+    margin: 14px auto 0;
+    padding: 6px 10px;
+    box-sizing: border-box;
+    background: #000;
+    /* the 2003 title-box border (.e), not an outset bevel: outset draws
+       its bottom and right darker than the fill, so on black only the
+       top and left ever showed and the plate read as half-drawn */
+    border: 2px solid #382418;
+    text-align: center;
+}
+
+.page-footer {
+    text-align: center;
+    font-size: 11px;
+    padding: 14px 10px 18px;
+}
+.page-footer p { margin: 0; }
+
+/* The trademark notice sits in the wrapper, inside the content pane and
+   below whatever the page rendered, because standalone pages (the landing
+   page) never include page-footer.html and it has to appear on every page. */
+.legal-footer {
+    margin: 0;
+    padding: 12px 16px 16px;
+    border-top: 1px solid #382418;
+    text-align: center;
+    font-size: 10px;
+    line-height: 1.4;
+    color: #8a8070;
+}
+
+/* ---- forms and panels (auth pages) ---- */
+
+.auth-panel {
+    width: 360px;
+    margin: 24px auto;
+    padding: 14px 18px;
+    box-sizing: border-box;
+    background: #000;
+    border: 2px solid #382418;
+}
+.auth-panel h1 { text-align: center; font-size: 16px; }
+.auth-hint { font-size: 11px; color: #c0c0c0; }
+
+.form-group { margin-bottom: 10px; }
+.form-group label { display: block; margin-bottom: 3px; }
+
+.form-control {
+    width: 100%;
+    box-sizing: border-box;
+    background: #fff;
+    color: #000;
+    border: 1px solid #000;
+    padding: 3px 4px;
+    font: 13px Arial, Helvetica, sans-serif;
+}
+
+.btn {
+    background: #d4d0c8;
+    color: #000;
+    border: 2px outset #f0f0f0;
+    padding: 3px 14px;
+    font: 13px Arial, Helvetica, sans-serif;
+    cursor: pointer;
+}
+.btn:active { border-style: inset; }
+/* .btn on an <a>: without this it keeps the site's green underlined link
+   colour and reads as text that happens to sit in a box. */
+a.btn, a.btn:visited, a.btn:hover, a.btn:active {
+    color: #000;
+    display: inline-block;
+    text-decoration: none;
+}
+.cta-row { margin: 12px 0 6px; }
+.btn-primary { font-weight: bold; }
+.btn-danger { color: #a00000; }
+
+.form-actions { margin-top: 12px; }
+.form-links { margin-top: 10px; font-size: 12px; }
+
+.checkbox-label { display: inline; font-size: 12px; white-space: nowrap; }
+.checkbox-label input { margin-right: 6px; }
+
+.alert {
+    border: 2px solid;
+    padding: 6px 10px;
+    margin: 0 0 12px;
+    background: #000;
+}
+.alert-success { border-color: #90c040; color: #90c040; }
+.alert-danger { border-color: #e03010; color: #ff6040; }
+.alert-warning { border-color: #d8b060; color: #d8b060; }
+
+.error-page { text-align: center; padding: 80px 20px; }
+
+/* ---- Account Manager ---------------------------------------------------- */
+
+.account-page { max-width: 720px; margin: 0 auto; }
+
+.account-panel {
+    margin: 0 0 16px;
+    padding: 12px 16px;
+    box-sizing: border-box;
+    background: #000;
+    border: 2px solid #382418;
+}
+.account-panel h2, .account-panel h3 { margin-top: 2px; }
+/* A step below h3, for sections within one panel (the Play page's build and
+   first-run instructions). Sized by hand rather than left to the browser
+   default, which would render it smaller than the body text it introduces. */
+.account-panel h4 {
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 16px 0 6px;
+}
+
+/* Commands to type. Separate from the forum's .bb-code so the two can be
+   restyled independently, and monospaced because these are meant to be copied
+   character for character.
+   pre-wrap, not pre: a long clone URL would otherwise scroll sideways inside a
+   frame that cannot grow, and on a phone that scroll is nearly unreachable.
+   Wrapping is only visual -- copying still yields the real line breaks. */
+.cmd-block {
+    background: #14100a;
+    border: 1px solid #382418;
+    color: #e8dfc0;
+    font: 12px "Courier New", Courier, monospace;
+    margin: 6px 0 10px;
+    padding: 8px 10px;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.account-panel code, .info-panel code {
+    color: #e8dfc0;
+    font: 12px "Courier New", Courier, monospace;
+}
+.account-panel-danger { border-color: #5a1810; }
+.account-panel-danger h3 { color: #ff6040; }
+
+.account-columns { display: flex; gap: 16px; align-items: flex-start; }
+.account-columns .account-panel { flex: 1 1 0; }
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px solid #382418;
+    font-size: 13px;
+}
+.data-table th, .data-table td {
+    border: 1px solid #382418;
+    padding: 3px 8px;
+    text-align: left;
+}
+.data-table th {
+    background: #1c130b;
+    color: #e0d8c0;
+    font-weight: bold;
+}
+.data-table tr:nth-child(even) td { background: #0c0803; }
+
+/* ---- browser client (/play/browser) -------------------------------------
+ * The game canvas is 512 wide and the frame's content pane is 518, which is
+ * not a coincidence -- both are the 2003 measurement. It does mean the stage
+ * cannot sit inside the usual 16px container padding, or the last six pixels
+ * of the game would be under the stone. So the container drops its side
+ * padding here and the panels below take it back individually.
+ */
+
+.play-browser { padding: 12px 0; }
+.play-browser .account-panel { margin: 0 16px 16px; }
+.play-browser noscript { display: block; margin: 0 16px; }
+
+.webclient-stage-wrap { text-align: center; margin: 0 0 12px; }
+
+/* padding-top reserves a strip above the canvas for the fullscreen button, so
+   it never sits on top of game pixels -- it used to overlap the inventory/map
+   tabs in the canvas's own top-right corner. border-box makes the padding eat
+   into width/height rather than add to them, which matters for the
+   fullscreen case below. Keep the 26px in sync with WebLaunch.TOOLBAR_HEIGHT,
+   which reserves the same strip out of the framebuffer height it asks for in
+   fullscreen. */
+#rscd-stage {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+    box-sizing: border-box;
+    padding-top: 26px;
+    background: #000;
+}
+#rscd-game {
+    background: #000;
+    border: 1px solid #382418;
+    line-height: 0;
+}
+#rscd-game canvas { display: block; }
+
+/* Both controls sit in the reserved strip, in a row rather than each pinned to
+   its own offset: the fullscreen button's label changes to "Exit fullscreen"
+   while it is on, so anything measured from the right edge would shift under
+   it. Inside #rscd-stage, which is the element that goes fullscreen -- so
+   these stay reachable there, which is what lets you leave again. */
+#rscd-tools {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 26px;
+    display: flex;
+    align-items: stretch;
+}
+#rscd-fs, #rscd-menu {
+    height: 26px;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    font: 11px/1 Arial, Helvetica, sans-serif;
+    color: #c8c4b0;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+}
+#rscd-fs:hover, #rscd-fs:focus, #rscd-menu:hover, #rscd-menu:focus { color: #fff; }
+#rscd-fs:focus, #rscd-menu:focus { outline: 1px solid #90c040; }
+
+/* Fullscreen: the client has already resized its own framebuffer (viewport
+   minus the reserved strip above) by the time this applies, so there is
+   nothing to scale -- this only centres the canvas and blacks out whatever is
+   left. */
+#rscd-stage:fullscreen {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#rscd-stage:fullscreen #rscd-game { border: 0; }
+
+/* ---- Forums ------------------------------------------------------------- */
+
+.forum-page { max-width: 860px; }
+.forum-breadcrumb { font-size: 12px; margin: 0 0 8px; }
+.forum-desc { font-size: 12px; color: #b0a890; }
+.forum-table td { vertical-align: top; }
+.forum-pager { font-size: 12px; margin: 10px 0 0; }
+
+.forum-post {
+    margin: 0 0 12px;
+    border: 1px solid #382418;
+    background: #0c0803;
+}
+.forum-post-head {
+    padding: 4px 8px;
+    background: #1c130b;
+    border-bottom: 1px solid #382418;
+    font-size: 12px;
+    color: #e0d8c0;
+}
+.forum-post-body { padding: 8px 10px; overflow-wrap: break-word; }
+.forum-edited { font-size: 11px; font-style: italic; color: #b0a890; margin: 6px 0 0; }
+
+.forum-inline-form { display: inline; margin: 0 0 0 4px; }
+.btn-link {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #d8b060;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: inherit;
+    font-family: inherit;
+}
+.forum-topic-controls { margin-top: 10px; }
+.forum-editor { width: 100%; min-height: 140px; box-sizing: border-box; }
+
+.bb-quote {
+    margin: 6px 0;
+    padding: 6px 10px;
+    border-left: 3px solid #382418;
+    background: #14100a;
+}
+.bb-quote-by { margin: 0 0 4px; font-size: 11px; font-weight: bold; color: #b0a890; }
+.bb-code {
+    margin: 6px 0;
+    padding: 6px 10px;
+    background: #14100a;
+    border: 1px solid #382418;
+    overflow-x: auto;
+    font-size: 12px;
+    white-space: pre-wrap;
+}
+
+.forum-admin-row {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin: 0 0 6px;
+    flex-wrap: wrap;
+}
+.forum-admin-row .form-control { width: auto; flex: 1 1 140px; }
+.forum-admin-sort { flex: 0 0 60px !important; }
+
+/* ---- Beastiary ---------------------------------------------------------- */
+
+.beastiary-page { max-width: 860px; }
+.beastiary-search { display: flex; gap: 6px; margin: 0 0 10px; }
+.beastiary-search .form-control { flex: 1 1 auto; width: auto; }
+.beastiary-stats { max-width: 320px; }
+.beastiary-stats th { width: 130px; }
+
+/* ---- Hiscores (2003 layout) --------------------------------------------- */
+/* Border idioms from the real 2003 page: .b = 3pt outset #373737 grey box,
+   .e = 2px solid #382418 dark box; white text, green links, Arial 13px. */
+
+.hiscores-page {
+    color: #fff;
+    font: 13px Arial, Helvetica, sans-serif;
+    margin: 0 auto;
+    max-width: 620px;
+}
+
+.hs-columns {
+    align-items: flex-start;
+    display: flex;
+    gap: 16px;
+}
+.hs-select { flex: none; width: 165px; }
+.hs-board { flex: 1; min-width: 0; }
+.hs-select h3,
+.hs-board h3 {
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0 0 6px;
+    text-align: center;
+}
+
+.hs-box {
+    background: #000;
+    border: 2px solid #382418;
+    padding: 8px;
+}
+.hs-menu { line-height: 1.5; text-align: center; }
+
+.hs-table {
+    border-collapse: collapse;
+    color: #fff;
+    width: 100%;
+}
+.hs-table th {
+    color: #fff;
+    padding: 2px 8px;
+    text-align: left;
+}
+.hs-table td { padding: 2px 8px; }
+
+.hs-empty { margin: 4px; text-align: center; }
+.hs-pagenav { margin: 8px 0; text-align: center; }
+
+.hs-searches {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    margin-top: 16px;
+}
+.hs-grey {
+    background: #3f3f3f;
+    border: 3px outset #373737;
+    flex: 1;
+    padding: 8px 14px;
+    text-align: center;
+}
+.hs-grey b { display: block; margin-bottom: 6px; }
+.hs-grey input[type="text"] {
+    background: #fff;
+    border: 1px solid #000;
+    color: #000;
+    font: 13px Arial, Helvetica, sans-serif;
+    padding: 2px 4px;
+    width: 110px;
+}
+.hs-grey input[type="submit"] {
+    background: #5a5a5a;
+    border: 2px outset #7a7a7a;
+    color: #fff;
+    cursor: pointer;
+    font: 13px Arial, Helvetica, sans-serif;
+    padding: 1px 10px;
+}
+.hs-grey input[type="submit"]:active { border-style: inset; }
+
+/* There is deliberately no narrow-screen rule stacking .hs-columns.
+ *
+ * There used to be one, at max-width 560px, and it was wrong for this site:
+ * media queries measure the viewport, but nothing inside the stone frame ever
+ * sees the viewport. The frame is a fixed 600px picture with a 518px content
+ * pane, and a phone gets the whole thing scaled down (see the zoom steps at
+ * the top of this file) rather than reflowed -- so the hiscores table has
+ * exactly the same room to work with on a 390px phone as on a desktop. The
+ * query fired anyway, on the device width, and stacked the board under the
+ * skill menu when there was no shortage of space at all.
+ *
+ * The rule for anything drawn inside .frame-content: lay it out for 518px and
+ * leave it there. Viewport-relative rules belong only to pages outside the
+ * frame -- the admin panel, which has its own wrapper and its own stylesheet.
+ */
+
+.beastiary-portrait { margin: 4px 0 12px; }
+.beastiary-portrait img { image-rendering: pixelated; max-width: 100%; }
+
+.manual-quest-list { margin: 4px 0 14px; line-height: 1.6; }
+.manual-quest-lines th { white-space: nowrap; }
+
+.item-sprite-cell { width: 52px; text-align: center; }
+.item-sprite { image-rendering: pixelated; vertical-align: middle; }
+.skill-icon { image-rendering: pixelated; vertical-align: middle; margin-right: 4px; }
+
+/* ---- the 2003 manual ----
+ * Archived pages are served verbatim inside this scope; the rules below
+ * are the original manual.html inline <STYLE> block plus its <body>
+ * attributes (black page, tiled stone background, #90c040 links),
+ * translated so they can't leak into the rest of the site.
+ */
+
+/* An archived page carries its own title box, so it sits straight under the
+   site header with no container padding to open a gap between the two. */
+.manual-archive { padding: 0; }
+
+.manual-2003 {
+    background: #000 url(../img/manual2003/rsimg/background.jpg);
+    color: #fff;
+    padding: 14px 6px;
+    text-align: center;
+    font: 13px Arial, Helvetica, sans-serif;
+}
+.manual-2003 table { color: #fff; font: 13px Arial, Helvetica, sans-serif; }
+.manual-2003 a, .manual-2003 a:visited { color: #90c040; }
+.manual-2003 .b { border-style: outset; border-width: 3pt; border-color: #373737; }
+.manual-2003 .e { border: 2px solid #382418; }
+.manual-2003 .c { text-decoration: none; }
+.manual-2003 a.c:hover { text-decoration: underline; }
+/* holds an unarchived card icon's space so the header beside it still
+   lines up with the cards that kept theirs; the build writes each one's
+   own declared size inline */
+.manual-icon-missing { display: inline-block; }
+
+/* World map. The 2003 page was a 1872x864 image inside a ~512x480 frame,
+   dragged around by an arrow pad; same frame, same arrows, now draggable. */
+.worldmap {
+    position: relative;
+    overflow: hidden;
+    width: 512px;
+    max-width: 100%;
+    height: 480px;
+    max-height: 70vh;
+    margin: 8px auto;
+    border: 2px solid #382418;
+    background: #000;
+    cursor: grab;
+    touch-action: none;
+    user-select: none;
+}
+.worldmap:focus { outline: 2px solid #90c040; }
+.worldmap.is-dragging { cursor: grabbing; }
+.worldmap-img { position: absolute; left: 0; top: 0; max-width: none; }
+
+.worldmap-arrow,
+.worldmap-keybtn {
+    position: absolute;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    line-height: 0;
+}
+.worldmap-arrow:focus-visible,
+.worldmap-keybtn:focus-visible { outline: 2px solid #90c040; }
+/* The original pinned the arrows at fixed pixel offsets inside a fixed
+   window. Anchored to the edges instead, so a narrow screen shrinking the
+   frame can't push the right arrow off it. */
+.wm-up    { left: 50%; margin-left: -23px; top: 8px; }
+.wm-down  { left: 50%; margin-left: -23px; bottom: 13px; }
+.wm-left  { left: 10px;  top: 50%; margin-top: -21px; }
+.wm-right { right: 10px; top: 50%; margin-top: -21px; }
+.worldmap-keybtn { right: 12px; top: 15px; }
+.worldmap-key {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%);
+    max-width: calc(100% - 16px);
+    height: auto;
+}
+
+/* ---- donate ----
+ * The amount picker is a row of radio labels rather than a select, so the
+ * choice is one click and the whole form still works with scripting off.
+ * Wraps on a narrow screen instead of overflowing the stone frame.
+ */
+.donate-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 14px;
+    margin-top: 4px;
+}
+.donate-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin: 0;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.donate-option input { margin: 0; }

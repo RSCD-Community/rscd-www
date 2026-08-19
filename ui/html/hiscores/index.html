@@ -1,0 +1,31 @@
+<div class="container hiscores-page">
+    [{alerts}]
+    <div class="hs-columns">
+        <div class="hs-select">
+            <h3>Select hiscore table</h3>
+            <div class="hs-box hs-menu">[{skill_menu}]</div>
+        </div>
+        <div class="hs-board">
+            <h3>[{heading}]</h3>
+            <div class="hs-box">[{listing}]</div>
+            [{pagenav}]
+        </div>
+    </div>
+    <div class="hs-searches">
+        <div class="hs-grey">
+            <b>Search by rank</b>
+            <form action="[{url.base}]hiscores/" method="GET">
+                [{skill_hidden}]
+                <input type="text" name="rank" maxlength="8" />
+                <input type="submit" value="Search" />
+            </form>
+        </div>
+        <div class="hs-grey">
+            <b>Search by name</b>
+            <form action="[{url.base}]hiscores/player/" method="GET">
+                <input type="text" name="name" maxlength="20" />
+                <input type="submit" value="Search" />
+            </form>
+        </div>
+    </div>
+</div>
